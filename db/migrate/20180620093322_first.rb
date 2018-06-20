@@ -4,6 +4,7 @@ class First < ActiveRecord::Migration[5.0]
     create_table :listings do |t|
       t.string :address
       t.string :postcode
+      t.string :neighborhood
       t.string :listing_status
       t.string :property_type
       t.integer :num_bedrooms
