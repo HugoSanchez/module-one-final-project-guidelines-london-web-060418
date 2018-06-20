@@ -8,3 +8,4 @@ gem "require_all"
 gem "nokogiri"
 gem "rest-client"
 gem 'json'
+gem 'faker'
