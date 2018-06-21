@@ -9,3 +9,7 @@ gem "nokogiri"
 gem "rest-client"
 gem 'json'
 gem 'faker'
+
+gem 'pry-byebug'
+# Found plugin pry-byebug, but could not require 'pry-byebug'
+# cannot load such file -- pry-byebug

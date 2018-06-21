@@ -1,7 +1,7 @@
 require 'rest-client'
 require 'pry'
 require 'nokogiri'
-require "active_support/core_ext"
+# require_relative '../config/environment'
 require 'faker'
 
 # def get_data
@@ -60,39 +60,37 @@ def megamaster
 end
 
 $large_number_range = (1000..20000).to_a
-$neighborhoods = ["Hampstead", "Chelsea", "Clapham", "Victoria", "Shoredich", "Canary Wharf", "Soho", "Camden Town", "Angel", "Fulham"]
+$neigh = ["Hampstead", "Chelsea", "Clapham", "Victoria", "Shoreditch", "Canary Wharf", "Soho", "Camden", "Islington", "Fulham"]
 
 def fakemega
   address = Faker::Address
   Listing.create(address: address.full_address,
               postcode: address.postcode,
-              neighborhood: $neighborhoods.sample,
+              neighborhood: $neigh.sample,
               listing_status: "Rent",
               property_type: ["Flat", "House"].sample,
-              num_bedrooms: (0..10).to_a.sample,
-              num_bathrooms: (0..5).to_a.sample,
+              num_bedrooms: (1..10).to_a.sample,
+              num_bathrooms: (1..5).to_a.sample,
               price: $large_number_range.sample,
-              short_description: "Whatever",
+              # short_description: "Whatever",
               listing_date: DateTime.now)
   puts "Created fake listing"
 end
 
-# 500.times do
-#   fakemega
-# end
+500.times do
+  fakemega
+end
 
-$restaurants = ["Some", "Some, but crappy", "Average", "Plenty", "Family Friendly"]
-$parks = ["None", "Some", "A few nice ones", "Plenty", "Family Friendly"]
-$pt = ["Very well connected", "Very well connected", "Very well connected", "Very well connected", "Average", "Poorly connected"]
-$age = ["15-20", "20-35", "35-50", "+50"]
-
-$neigh = ["Hampstead", "Chelsea", "Clapham", "Victoria", "Shoredich", "Canary Wharf", "Soho", "Camden Town", "Angel", "Fulham"]
+$restaurants = ["Some", "Some, but crappy", "Plenty of", "Family Friendly", "Only a few", "No"]
+$parks = ["No", "Some", "A few nice", "Plenty of", "Playgrounds and"]
+$pt = ["Very well connected", "Very well connected", "Very well connected", "Very well connected", "Poorly connected"]
+$age = ["15-25", "20-35", "35-50", "50+"]
 
 def megahood
   $neigh.each do |n|
   Neighborhood.create(name: n,
                       public_schools: (1..5).to_a.sample,
-                      crime_rate: (1..10).to_a.sample,
+                      crime_rate: (1..7).to_a.sample,
                       restaurants: $restaurants.sample,
                       parks: $parks.sample,
                       public_transport: $pt.sample,

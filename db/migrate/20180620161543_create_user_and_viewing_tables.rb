@@ -3,6 +3,7 @@ class CreateUserAndViewingTables < ActiveRecord::Migration[5.0]
   def change
     create_table :users do |t|
       t.string :name
+      t.integer :neighborhood_id
     end
 
     create_table :viewings do |t|
