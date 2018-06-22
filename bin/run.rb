@@ -30,7 +30,6 @@ class CLI
     system("say 'Hi #{@name}, welcome to London Property Listings, we are here to help you
       find your perfect new home!'")
     @current_user = User.create(name: @name)
-
   end
 
     def yes_no
