@@ -24,9 +24,8 @@ class CLI
     spaces(30)
     @name = gets.chomp.capitalize
     spaces(30)
-    puts "            Hi #{@name}, welcome to London Property Listings, we are here to help you
-
-                                     find your perfect new home!"
+    puts "            Hi #{@name}, welcome to London Property Listings, I am your personal assistant
+                          and I am going to help you find your perfect new home!"
     system("say 'Hi #{@name}, welcome to London Property Listings, we are here to help you
       find your perfect new home!'")
     @current_user = User.create(name: @name)
