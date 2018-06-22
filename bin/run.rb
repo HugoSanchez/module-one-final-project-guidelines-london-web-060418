@@ -245,7 +245,7 @@ class CLI
 
   def arrange_viewing
     puts "                 To arrange a viewing with us please ENTER the listing ID
-                                     and we will take care of it!"
+                                and we will take care of it!"
     puts ""
     puts "                            You can add as many as you like."
     puts ""
@@ -255,8 +255,41 @@ class CLI
     viewing_ids = []
     # keep going until the new input is "F"
     while listing != "F" #|| check if the user already has that lisitng
-      #Viewings.all
+
+      # def val_users
+      # Viewing.all.select do |user|
+      #   binding.pry
+      #   user.id == @current_user.id
+      #     puts "found user #{@current_user.id }"
+      #   end
+      # end
+
+      def users_viewings
+      Viewing.all.select do |viewing|
+        viewing.user_id == @current_user.id
+        end
+      end
+
+      #all user's listings:
+      # def listings
+      #   users_viewings.map do |viewing|
+      #     viewing.listing
+      #   end
+      # end
+
+      #all user's listings ids:
+      def listings
+        users_viewings.map do |viewing|
+          viewing.listing_id
+        end
+      end
+
+      # Viewing.all[i].listing_id == some_id_you_want_to_add
+      #
+      # Viewing.all.each do ||
+      if
       new_viewing = Viewing.create(user: @current_user, listing: listing)
+
       viewing_ids << listing.id
       puts "                 Listing #{listing.id} added!"
       puts ""
@@ -264,9 +297,10 @@ class CLI
       # ask the user for input again
       listing = listing_input
     end
-    puts "                 You hit 'F'. Love you!"
+    # puts "                 You hit 'F'. Love you!"
     spaces(5)
     ids = viewing_ids.join ", "
+    ids = ids
     puts "You selected: #{ids}."
 
   end
