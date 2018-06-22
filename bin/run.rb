@@ -20,12 +20,15 @@ class CLI
 
   def greeting
     puts "            Hello, please type your name here:"
+    system('say "Hello, please type your name here"')
     spaces(30)
     @name = gets.chomp.capitalize
     spaces(30)
     puts "            Hi #{@name}, welcome to London Property Listings, we are here to help you
 
                                      find your perfect new home!"
+    system("say 'Hi #{@name}, welcome to London Property Listings, we are here to help you
+      find your perfect new home!'")
     @current_user = User.create(name: @name)
 
   end
@@ -190,6 +193,7 @@ class CLI
 
     if @user_listings.length == 0
       puts "                 Sorry! We have no listings mathcing your criteria. Please try again!"
+      spaces(3)
       yes_no
     else
       puts "                 Awesome! We have #{@user_listings.length} listings for you:"
@@ -215,11 +219,22 @@ class CLI
     c = gets.chomp
     spaces(40)
     if c.downcase == "v"
-      arrange_viewing
+      view_intro_text
       spaces(30)
     else
       continue_to_viewings
     end
+  end
+
+  def view_intro_text
+    puts "                 To arrange a viewing with us please ENTER the listing ID
+                                and we will take care of it!"
+    puts ""
+    puts "                            You can add as many as you like."
+    puts ""
+    puts "                 Once you've finished, PRESS 'F' to see your selection."
+    spaces(15)
+    arrange_viewing
   end
 
   def listing_input
@@ -244,65 +259,32 @@ class CLI
   end
 
   def arrange_viewing
-    puts "                 To arrange a viewing with us please ENTER the listing ID
-                                and we will take care of it!"
-    puts ""
-    puts "                            You can add as many as you like."
-    puts ""
-    puts "                 Once you've finished, PRESS 'F' to see your selection."
     spaces(2)
     listing = listing_input
-    viewing_ids = []
     # keep going until the new input is "F"
-    while listing != "F" #|| check if the user already has that lisitng
-
-      # def val_users
-      # Viewing.all.select do |user|
-      #   binding.pry
-      #   user.id == @current_user.id
-      #     puts "found user #{@current_user.id }"
-      #   end
-      # end
-
-      def users_viewings
-      Viewing.all.select do |viewing|
-        viewing.user_id == @current_user.id
-        end
+    if listing != "F"
+      if !@current_user.listing_ids.include?(listing.id)
+          Viewing.create(user: @current_user, listing: listing)
+          puts "                 Listing #{listing.id} added!"
+          puts ""
+          puts "                 Add another listing ID or PRESS 'F'"
+          #tells User class about the new listings
+          @current_user = User.find(@current_user.id)  #refresh User
+      else
+          puts "                 You've added this listing already!"
+          puts ""
+          puts "                 Please ddd another listing ID or PRESS 'F'"
       end
+      arrange_viewing
 
-      #all user's listings:
-      # def listings
-      #   users_viewings.map do |viewing|
-      #     viewing.listing
-      #   end
-      # end
-
-      #all user's listings ids:
-      def listings
-        users_viewings.map do |viewing|
-          viewing.listing_id
-        end
-      end
-
-      # Viewing.all[i].listing_id == some_id_you_want_to_add
-      #
-      # Viewing.all.each do ||
-      if
-      new_viewing = Viewing.create(user: @current_user, listing: listing)
-
-      viewing_ids << listing.id
-      puts "                 Listing #{listing.id} added!"
-      puts ""
-      puts "                 Add another listing ID or PRESS 'F'"
-      # ask the user for input again
-      listing = listing_input
+    else
+      spaces(5)
+      ids = @current_user.listing_ids.join ", "
+      ids = ids
+      system("say 'Your listings are: #{ids}.'")
+      puts "Your listings are: #{ids}."
+      return
     end
-    # puts "                 You hit 'F'. Love you!"
-    spaces(5)
-    ids = viewing_ids.join ", "
-    ids = ids
-    puts "You selected: #{ids}."
-
   end
 
 
