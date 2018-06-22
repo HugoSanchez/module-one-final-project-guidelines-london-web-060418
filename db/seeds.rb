@@ -2,7 +2,7 @@ require 'rest-client'
 require 'pry'
 require 'nokogiri'
 require 'faker'
-require_relative '../config/environment'
+# require_relative '../config/environment'
 
 def scrap
   pg = 194
