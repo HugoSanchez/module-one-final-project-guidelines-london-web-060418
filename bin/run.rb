@@ -287,7 +287,7 @@ class CLI
       # Viewing.all[i].listing_id == some_id_you_want_to_add
       #
       # Viewing.all.each do ||
-      if
+      # if
       new_viewing = Viewing.create(user: @current_user, listing: listing)
 
       viewing_ids << listing.id
@@ -300,7 +300,7 @@ class CLI
     # puts "                 You hit 'F'. Love you!"
     spaces(5)
     ids = viewing_ids.join ", "
-    ids = ids
+    ids = ids.uniq
     puts "You selected: #{ids}."
 
   end
